@@ -6,7 +6,13 @@ export default function SignInPage() {
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <SignIn />
+        <SignIn
+          path="/sign-in"
+          routing="path"
+          signUpUrl="/sign-up"
+          fallbackRedirectUrl="/dashboard"
+          redirectUrl="/dashboard"
+        />
       </div>
     </ClerkProvider>
   );

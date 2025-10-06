@@ -112,7 +112,7 @@ export function HeroSection() {
                       className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-black/5 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
                     >
                       <span className="text-foreground text-sm">
-                        # 1 Introducing First AI Climate Literacy Platform
+                        🎉# 1 Introducing First AI Climate Literacy Platform
                       </span>
                       <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
