@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { ModeToggle } from "@/components/toggle-dark";
+import dynamic from "next/dynamic";
+const ModeToggle = dynamic(
+  () => import("@/components/toggle-dark").then((mod) => mod.ModeToggle),
+  { ssr: false }
+);
 import { Variants, Transition } from "framer-motion";
 import {
   ClerkProvider,
