@@ -250,7 +250,7 @@ export function HeroSection() {
             </div>
           </section>
           <section className="bg-background pb-16 pt-16 md:pb-32">
-            <div className="group relative m-auto max-w-5xl px-6">
+          <div className="group relative m-auto max-w-5xl px-6 pt-20">
               <div className="absolute inset-0 z-10 flex scale-95 items-center justify-center opacity-0 duration-500 group-hover:scale-100 group-hover:opacity-100">
                 <Link
                   href="/"
@@ -264,7 +264,8 @@ export function HeroSection() {
               <div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
                 <div className="flex">
                   <Image
-                    className="mx-auto h-5 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
+
                     src="https://html.tailus.io/blocks/customers/nvidia.svg"
                     alt="Nvidia Logo"
                     width="80"
@@ -274,7 +275,7 @@ export function HeroSection() {
 
                 <div className="flex">
                   <Image
-                    className="mx-auto h-4 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
                     src="https://html.tailus.io/blocks/customers/column.svg"
                     alt="Column Logo"
                     width="64"
@@ -283,7 +284,7 @@ export function HeroSection() {
                 </div>
                 <div className="flex">
                   <Image
-                    className="mx-auto h-4 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
                     src="https://html.tailus.io/blocks/customers/github.svg"
                     alt="GitHub Logo"
                     width="64"
@@ -292,7 +293,7 @@ export function HeroSection() {
                 </div>
                 <div className="flex">
                   <Image
-                    className="mx-auto h-5 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
                     src="https://html.tailus.io/blocks/customers/nike.svg"
                     alt="Nike Logo"
                     width="80"
@@ -301,7 +302,7 @@ export function HeroSection() {
                 </div>
                 <div className="flex">
                   <Image
-                    className="mx-auto h-5 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
                     src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg"
                     alt="Lemon Squeezy Logo"
                     width="80"
@@ -310,7 +311,7 @@ export function HeroSection() {
                 </div>
                 <div className="flex">
                   <Image
-                    className="mx-auto h-4 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
                     src="https://html.tailus.io/blocks/customers/laravel.svg"
                     alt="Laravel Logo"
                     width="64"
@@ -319,7 +320,7 @@ export function HeroSection() {
                 </div>
                 <div className="flex">
                   <Image
-                    className="mx-auto h-7 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
                     src="https://html.tailus.io/blocks/customers/lilly.svg"
                     alt="Lilly Logo"
                     width="112"
@@ -329,7 +330,7 @@ export function HeroSection() {
 
                 <div className="flex">
                   <Image
-                    className="mx-auto h-6 w-fit dark:invert"
+                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
                     src="https://html.tailus.io/blocks/customers/openai.svg"
                     alt="OpenAI Logo"
                     width="96"
