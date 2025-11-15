@@ -3,14 +3,32 @@ import ProgressAnalytics from "@/components/ProgressAnalytics";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  IconTrendingUp,
+  IconBook,
+  IconEye,
+  IconCategory,
+} from "@tabler/icons-react";
+import { DashboardLayout } from "@/components/dashboard-layout";
+import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/Footer";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 interface User {
   _id: string;
@@ -31,7 +49,7 @@ interface Content {
   createdAt: string;
 }
 
-export default function DashboardPage() {
+export default function Page() {
   const [user, setUser] = useState<User | null>(null);
   const [content, setContent] = useState<Content[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +97,11 @@ export default function DashboardPage() {
     );
   }
 
+  const totalViews = content.reduce((acc, item) => acc + item.views, 0);
+  const uniqueCategories = new Set(content.map((item) => item.category)).size;
+
   return (
+<<<<<<< HEAD
     <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-8">
         {/* Personalized Header */}
@@ -194,35 +216,123 @@ export default function DashboardPage() {
         {/* Stats Cards */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           <Card>
+=======
+    <DashboardLayout>
+      <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+        {/* Breadcrumb */}
+        <div className="px-4 lg:px-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Dashboard</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
+        {/* Welcome Section */}
+        <div className="px-4 lg:px-6">
+          <h1 className="text-3xl font-bold mb-2">
+            Welcome back, {user?.firstName || "there"}!
+          </h1>
+          <p className="text-muted-foreground">
+            Here&apos;s your personalized learning overview
+          </p>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 gap-4 px-4 lg:px-6 md:grid-cols-2 lg:grid-cols-4">
+          <Card className="@container/card">
+>>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
             <CardHeader>
-              <CardTitle>Age Group</CardTitle>
-              <CardDescription>Your content preference</CardDescription>
+              <CardDescription>Age Group</CardDescription>
+              <CardTitle className="text-2xl font-semibold capitalize tabular-nums @[250px]/card:text-3xl">
+                {user?.ageGroup || "N/A"}
+              </CardTitle>
+              <CardAction>
+                <Badge variant="outline">
+                  <IconBook className="size-4" />
+                  Active
+                </Badge>
+              </CardAction>
             </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold capitalize">{user?.ageGroup}</p>
-            </CardContent>
+            <CardFooter className="flex-col items-start gap-1.5 text-sm">
+              <div className="line-clamp-1 font-medium">
+                Your content preference
+              </div>
+              <div className="text-muted-foreground">
+                Curated for your age group
+              </div>
+            </CardFooter>
           </Card>
 
-          <Card>
+          <Card className="@container/card">
             <CardHeader>
-              <CardTitle>Available Content</CardTitle>
-              <CardDescription>Items for your age group</CardDescription>
+              <CardDescription>Available Content</CardDescription>
+              <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                {content.length}
+              </CardTitle>
+              <CardAction>
+                <Badge variant="outline">
+                  <IconTrendingUp className="size-4" />
+                  Updated
+                </Badge>
+              </CardAction>
             </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{content.length}</p>
-            </CardContent>
+            <CardFooter className="flex-col items-start gap-1.5 text-sm">
+              <div className="line-clamp-1 flex gap-2 font-medium">
+                Items for your age group
+              </div>
+              <div className="text-muted-foreground">Start learning today</div>
+            </CardFooter>
           </Card>
 
-          <Card>
+          <Card className="@container/card">
             <CardHeader>
-              <CardTitle>Total Views</CardTitle>
-              <CardDescription>Content engagement</CardDescription>
+              <CardDescription>Total Views</CardDescription>
+              <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                {totalViews}
+              </CardTitle>
+              <CardAction>
+                <Badge variant="outline">
+                  <IconEye className="size-4" />
+                  Engagement
+                </Badge>
+              </CardAction>
             </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">
-                {content.reduce((acc, item) => acc + item.views, 0)}
-              </p>
-            </CardContent>
+            <CardFooter className="flex-col items-start gap-1.5 text-sm">
+              <div className="line-clamp-1 font-medium">Content engagement</div>
+              <div className="text-muted-foreground">
+                Popular content metrics
+              </div>
+            </CardFooter>
+          </Card>
+
+          <Card className="@container/card">
+            <CardHeader>
+              <CardDescription>Categories</CardDescription>
+              <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                {uniqueCategories}
+              </CardTitle>
+              <CardAction>
+                <Badge variant="outline">
+                  <IconCategory className="size-4" />
+                  Diverse
+                </Badge>
+              </CardAction>
+            </CardHeader>
+            <CardFooter className="flex-col items-start gap-1.5 text-sm">
+              <div className="line-clamp-1 font-medium">
+                Available categories
+              </div>
+              <div className="text-muted-foreground">
+                Explore different topics
+              </div>
+            </CardFooter>
           </Card>
 
           <Card>
@@ -241,6 +351,7 @@ export default function DashboardPage() {
           </Card>
         </div>
 
+<<<<<<< HEAD
         {/* AI-Powered Progress Analytics */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
@@ -255,10 +366,23 @@ export default function DashboardPage() {
             <h2 className="text-2xl font-bold flex items-center gap-2">
               ⭐ Recommended for You
             </h2>
+=======
+        {/* Recent Content Section */}
+        <div className="px-4 lg:px-6">
+          <Separator className="my-4" />
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-2xl font-bold">Recent Content</h2>
+              <p className="text-sm text-muted-foreground">
+                Latest educational content for you
+              </p>
+            </div>
+>>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
             <Button variant="outline" onClick={() => router.push("/content")}>
               View All Content
             </Button>
           </div>
+<<<<<<< HEAD
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {content.map((item) => (
               <Card
@@ -282,6 +406,10 @@ export default function DashboardPage() {
           </div>
 
           {content.length === 0 && (
+=======
+
+          {content.length === 0 ? (
+>>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
             <Card>
               <CardContent className="py-12 text-center">
                 <p className="text-muted-foreground">
@@ -289,8 +417,36 @@ export default function DashboardPage() {
                 </p>
               </CardContent>
             </Card>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {content.map((item) => (
+                <Card
+                  key={item._id}
+                  className="hover:shadow-lg transition-shadow"
+                >
+                  <CardHeader>
+                    <CardTitle className="line-clamp-1">{item.title}</CardTitle>
+                    <CardDescription className="line-clamp-2">
+                      {item.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between text-sm">
+                      <Badge variant="secondary" className="capitalize">
+                        {item.category}
+                      </Badge>
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <IconEye className="size-4" />
+                        {item.views}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           )}
         </div>
+<<<<<<< HEAD
 
         {/* Quick Actions */}
         <div className="mb-8">
@@ -352,5 +508,9 @@ export default function DashboardPage() {
       </main>
       <Footer />
     </div>
+=======
+      </div>
+    </DashboardLayout>
+>>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
   );
 }

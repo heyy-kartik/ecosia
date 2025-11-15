@@ -23,7 +23,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <HeroHeader />
             {children}
           </ThemeProvider>
         </body>

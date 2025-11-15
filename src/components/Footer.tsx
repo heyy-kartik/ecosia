@@ -1,27 +1,31 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import {motion} from "framer-motion";
 export default function Footer() {
   return (
-    <footer className="relative z-20 w-full bg-background/80 backdrop-blur">
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+    <footer className="relative z-20 w-full bg-background/80 backdrop-blur border-t border-white/10">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+      <motion.div 
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"
+>
+
+
           {/* Brand Section */}
 
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div>
-                <div className="">
-                  <Image src="/logo.jpg" alt="Logo" width={40} height={50} />
-                </div>
-                <div className="font-bold text-foreground text-lg">
-                  ECOSIA PCCOE
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  Climate Education — Powered by AI
-                </div>
-              </div>
+          <div className="space-y-1">
+          <div className="flex items-center gap-3">
+            <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="rounded-md" />
+            <div>
+              <p className="font-bold text-foreground text-lg">ECOSIA PCCOE</p>
+              <p className="text-xs text-muted-foreground">Climate Education — Powered by AI</p>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               Empowering individuals with the knowledge and tools to understand
               climate change through AI-personalized educational content.
             </p>
@@ -32,13 +36,15 @@ export default function Footer() {
           </div>
 
           {/* Learning Paths */}
+          
+
           <div>
-            <h3 className="font-bold text-foreground mb-3">Learning Paths</h3>
+          <p className="font-semibold text-white/90 mb-4 tracking-wide">Learning Paths </p>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link
                   href="/content?category=basics"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Climate Basics
                 </Link>
@@ -46,7 +52,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/content?category=science"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Climate Science
                 </Link>
@@ -54,7 +60,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/content?category=solutions"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Climate Solutions
                 </Link>
@@ -62,7 +68,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/content?category=action"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Climate Action
                 </Link>
@@ -70,7 +76,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/content?category=policy"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Climate Policy
                 </Link>
@@ -80,12 +86,12 @@ export default function Footer() {
 
           {/* Age Groups */}
           <div>
-            <h3 className="font-semibold text-foreground mb-3">Age Groups</h3>
+            <h3 className="font-semibold text-white/90 mb-4 tracking-wide">Age Groups</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link
                   href="/content?ageGroup=children"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Children (6-12)
                 </Link>
@@ -93,7 +99,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/content?ageGroup=teens"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hhover:text-white transition-all duration-200"
                 >
                   Teens (13-17)
                 </Link>
@@ -101,7 +107,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/content?ageGroup=adults"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hhover:text-white transition-all duration-200"
                 >
                   Adults (18+)
                 </Link>
@@ -109,7 +115,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/dashboard"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Personal Dashboard
                 </Link>
@@ -117,8 +123,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/onboarding"
-                  className="hover:text-accent-foreground transition-colors"
-                >
+                  className="hover:text-white transition-all duration-200">
                   Get Started
                 </Link>
               </li>
@@ -127,12 +132,12 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-foreground mb-3">Quick Links</h3>
+            <h3 className="font-semibold text-white/90 mb-4 tracking-wide">Quick Links</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   About ECOSIA
                 </Link>
@@ -140,7 +145,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/how-it-works"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   How AI Works
                 </Link>
@@ -148,7 +153,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/content"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Browse Content
                 </Link>
@@ -156,7 +161,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/resources"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Resources
                 </Link>
@@ -164,14 +169,15 @@ export default function Footer() {
               <li>
                 <Link
                   href="/support"
-                  className="hover:text-accent-foreground transition-colors"
+                  className="hover:text-white transition-all duration-200"
                 >
                   Help Center
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
+          </div>   
+        </motion.div>
+        
 
         {/* Bottom Section */}
         <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
