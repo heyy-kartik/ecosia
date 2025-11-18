@@ -131,7 +131,7 @@ const Movingquotes = () => {
       {/* testimonials */}
       <section id="stories" className="max-w-6xl mx-auto px-6 py-14">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold">Voices from our community</h2>
+          <h2 className="text-2xl font-bold">Voices from our Student</h2>
         </div>
 
         <div

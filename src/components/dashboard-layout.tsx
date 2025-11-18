@@ -47,7 +47,7 @@ import {
   IconBrain,
   IconSun,
   IconMoon,
-  IconMonitor,
+  IconDeviceDesktop,
 } from "@tabler/icons-react";
 import { UserButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
@@ -146,7 +146,7 @@ function ThemeToggle() {
           Dark
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          <IconMonitor className="mr-2 h-4 w-4" />
+          <IconDeviceDesktop className="mr-2 h-4 w-4" />
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
