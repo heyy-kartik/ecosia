@@ -1,18 +1,21 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+
+
 import { ArrowRight, ChevronRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Movingquotes from "@/components/Movingquotes";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 const ModeToggle = dynamic(
   () => import("@/components/toggle-dark").then((mod) => mod.ModeToggle),
   { ssr: false }
 );
-import { Variants, Transition } from "framer-motion";
+import { Variants } from "framer-motion";
 import {
   ClerkProvider,
   SignInButton,
@@ -53,6 +56,8 @@ const transitionVariants: { item: Variants } = {
     },
   },
 };
+
+//Helper component for small star ratings
 
 export function HeroSection() {
   return (
@@ -239,81 +244,9 @@ export function HeroSection() {
                   <ChevronRight className="ml-1 inline-block size-3" />
                 </Link>
               </div>
-              <div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/nvidia.svg"
-                    alt="Nvidia Logo"
-                    width="80"
-                    height="20"
-                  />
-                </div>
 
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/column.svg"
-                    alt="Column Logo"
-                    width="64"
-                    height="16"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/github.svg"
-                    alt="GitHub Logo"
-                    width="64"
-                    height="16"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/nike.svg"
-                    alt="Nike Logo"
-                    width="80"
-                    height="20"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg"
-                    alt="Lemon Squeezy Logo"
-                    width="80"
-                    height="20"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/laravel.svg"
-                    alt="Laravel Logo"
-                    width="64"
-                    height="16"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/lilly.svg"
-                    alt="Lilly Logo"
-                    width="112"
-                    height="28"
-                  />
-                </div>
-
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/openai.svg"
-                    alt="OpenAI Logo"
-                    width="96"
-                    height="24"
-                  />
-                </div>
+              <div className="max-w-6xl mx-auto px-6 py-10 grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500  sm:gap-x-16 sm:gap-y-14">
+                <Movingquotes />
               </div>
             </div>
           </section>
@@ -326,7 +259,9 @@ export function HeroSection() {
 const menuItems = [
   { name: "Features", href: "#link" },
   { name: "Solution", href: "#link" },
-  { name: "Tutorials", href: "#link" },
+
+  { name: "Tutorials", href: "tutorials" },
+
   { name: "About", href: "#link" },
 ];
 
