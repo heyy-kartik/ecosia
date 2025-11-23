@@ -254,12 +254,12 @@ export function HeroSection() {
 }
 
 const menuItems = [
-  { name: "Features", href: "#link" },
-  { name: "Solution", href: "#link" },
+  { name: "Features", href: "features" },
+  { name: "Solution", href: "solution" },
 
   { name: "Tutorials", href: "tutorials" },
 
-  { name: "About", href: "#link" },
+  { name: "About", href: "about" },
 ];
 
 export const HeroHeader = () => {
