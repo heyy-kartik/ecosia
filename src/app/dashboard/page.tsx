@@ -65,13 +65,19 @@ export default function DashboardPage() {
                 <LayoutDashboard size={18} /> Dashboard
               </button>
 
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+              <Link
+                href="/dashboard/activities/learningPath"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
                 <Route size={18} /> Learning Path
-              </button>
+              </Link>
 
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+              <Link
+                href="/dashboard/quizzes"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
                 <BookOpen size={18} /> Quizzes
-              </button>
+              </Link>
 
               <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
                 <Sparkles size={18} /> Activities
