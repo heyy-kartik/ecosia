@@ -3,27 +3,32 @@ import { FeatureSteps } from "@/components/feature-section";
 
 const features = [
   {
-    step: "Step 1",
-    title: "Learn the Basics",
-    content: "Start your Web3 journey by learning the basics of blockchain.",
+    title: "Take Assessment",
+    content:
+      "Start with our AI-powered assessment to determine your current climate knowledge and learning style preferences.",
     image:
-      "https://images.unsplash.com/photo-1723958929247-ef054b525153?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
   },
   {
-    step: "Step 2",
-    title: "Deep Dive",
+    title: "Personalized Learning Path",
     content:
-      "Dive deep into blockchain fundamentals and smart contract development.",
+      "Get AI-curated content tailored to your age group, interests, and knowledge level for optimal learning.",
     image:
-      "https://images.unsplash.com/photo-1723931464622-b7df7c71e380?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1569163139394-de4e4f43e4e5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
   },
   {
-    step: "Step 3",
-    title: "Build Projects",
+    title: "Interactive Learning",
     content:
-      "Graduate with hands-on Web3 experience through building decentralized applications.",
+      "Engage with climate simulations, quizzes, and real-world case studies to deepen your understanding.",
     image:
-      "https://images.unsplash.com/photo-1725961476494-efa87ae3106a?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1497486751825-1233686d5d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
+  },
+  {
+    title: "Take Action",
+    content:
+      "Apply your knowledge through community projects and personal climate action plans with measurable impact.",
+    image:
+      "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
   },
 ];
 
@@ -31,8 +36,8 @@ export default function FeatureStepsDemo() {
   return (
     <FeatureSteps
       features={features}
-      title="Your Journey Starts Here"
-      autoPlayInterval={4000}
+      title="Your Climate Learning Journey"
+      autoPlayInterval={5000}
       imageHeight="h-[500px]"
     />
   );
