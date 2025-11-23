@@ -1,174 +1,210 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Footer from "@/components/Footer";
+import { useState } from "react";
+import { TabSwitcher } from "./activities/components/tabs-switcher";
 
-interface User {
-  _id: string;
-  clerkId: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-  ageGroup?: string;
-  onboardingCompleted: boolean;
-}
+import { StatCard } from "./activities/components/stat-card";
+import { ClimateChart } from "./activities/components/climate-chart";
+import { LearningPathCard } from "@/components/learning-path-card";
+import { TopicsTable } from "./activities/components/topics-table";
 
-interface Content {
-  _id: string;
-  title: string;
-  description: string;
-  category: string;
-  views: number;
-  createdAt: string;
-}
+import { Leaf, Target, BookOpen, Sparkles } from "lucide-react";
+import { LayoutDashboard, Route, BarChart3, MessagesSquare, Settings } from "lucide-react";
+
+import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { useScroll } from "framer-motion";
+import Link from "next/link";
+
+const scrollReveal = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
+
+const parallax: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" }
+  }
+};
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<User | null>(null);
-  const [content, setContent] = useState<Content[]>([]);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const [tab, setTab] = useState("Overview");
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch user
-        const userResponse = await fetch("/api/users");
-        if (userResponse.ok) {
-          const userData = await userResponse.json();
-          setUser(userData);
-
-          // Redirect to onboarding if not completed
-          if (!userData.onboardingCompleted) {
-            router.push("/onboarding");
-            return;
-          }
-
-          // Fetch content based on user's age group
-          const contentResponse = await fetch(
-            `/api/content?ageGroup=${userData.ageGroup}&limit=6`
-          );
-          if (contentResponse.ok) {
-            const contentData = await contentResponse.json();
-            setContent(contentData.content);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, [router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    );
-  }
+  const { scrollY } = useScroll();
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8  mt-15">
-          <h1 className="text-4xl font-bold mb-2">
-            Welcome back, {user?.firstName || "there"}!
-          </h1>
-          <p className="text-muted-foreground">
-            Here&apos;s what&apos;s new for you
-          </p>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="flex flex-row w-full min-h-screen bg-[#f5f3f0] dark:bg-black rounded-xl p-6 text-sm mt-12"
+    >
+      {/* Sidebar */}
+      <aside className="w-56 min-h-screen bg-transparent backdrop-blur-xl text-black dark:text-white flex flex-col rounded-xl text-sm">
+        {/* Top section */}
+        <div className="px-5 py-4 flex items-center gap-2">
+          <Leaf className="text-green-400" size={22} />
+          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">Ecosia</span>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>Age Group</CardTitle>
-              <CardDescription>Your content preference</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold capitalize">{user?.ageGroup}</p>
-            </CardContent>
-          </Card>
+        {/* Navigation sections */}
+        <div className="flex-1 flex flex-col justify-between py-4">
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Available Content</CardTitle>
-              <CardDescription>Items for your age group</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{content.length}</p>
-            </CardContent>
-          </Card>
+          <div>
+            {/* HOME SECTION */}
+            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">Home</div>
+            <nav className="flex flex-col gap-0.5 px-3 mb-4">
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/10 text-black dark:text-white">
+                <LayoutDashboard size={18} /> Dashboard
+              </button>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Total Views</CardTitle>
-              <CardDescription>Content engagement</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">
-                {content.reduce((acc, item) => acc + item.views, 0)}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <Route size={18} /> Learning Path
+              </button>
 
-        {/* Recent Content */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold">Recent Content</h2>
-            <Button variant="outline" onClick={() => router.push("/content")}>
-              View All
-            </Button>
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <BookOpen size={18} /> Quizzes
+              </button>
+
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <Sparkles size={18} /> Activities
+              </button>
+
+              <Link href="/dashboard/insights-page" className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <BarChart3 size={18} /> Insights
+              </Link>
+
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <MessagesSquare size={18} /> AI Assistant
+              </button>
+            </nav>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {content.map((item) => (
-              <Card
-                key={item._id}
-                className="hover:shadow-lg transition-shadow"
-              >
-                <CardHeader>
-                  <CardTitle className="line-clamp-1">{item.title}</CardTitle>
-                  <CardDescription className="line-clamp-2">
-                    {item.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <span className="capitalize">{item.category}</span>
-                    <span>{item.views} views</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="mt-auto">
+            {/* DOCUMENTS SECTION */}
+            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">Documents</div>
+            <nav className="flex flex-col gap-0.5 px-3">
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <Settings size={18} /> Settings
+              </button>
+            </nav>
           </div>
 
-          {content.length === 0 && (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <p className="text-muted-foreground">
-                  No content available yet. Check back soon!
-                </p>
-              </CardContent>
-            </Card>
-          )}
         </div>
-      </main>
-      <Footer />
-    </div>
+      </aside>
+      
+      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y-auto text-black dark:text-white">
+
+        {/* Overview Tab */}
+        {tab === "Overview" && (
+          <div className="flex flex-col gap-10">
+
+            {/* Stat Cards */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            >
+              <StatCard
+                title="Climate Score"
+                value="78"
+                subtitle="Your overall understanding"
+                trend="+12% this week"
+                icon={<Leaf size={18} />}
+              />
+              <StatCard
+                title="Quiz Accuracy"
+                value="85%"
+                subtitle="Across last 5 quizzes"
+                icon={<Target size={18} />}
+              />
+              <StatCard
+                title="Lessons Completed"
+                value="14"
+                subtitle="Across all climate topics"
+                icon={<BookOpen size={18} />}
+              />
+              <StatCard
+                title="Activity Points"
+                value="260"
+                subtitle="Earned from climate tasks"
+                icon={<Sparkles size={18} />}
+              />
+            </motion.div>
+
+            {/* Climate Chart — full width & spacious */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="w-full"
+            >
+              <ClimateChart />
+            </motion.div>
+
+            {/* Learning Path — horizontal full width */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="w-full"
+            >
+              <LearningPathCard />
+            </motion.div>
+
+            {/* Topics Table */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="w-full"
+            >
+              <TopicsTable />
+            </motion.div>
+
+          </div>
+        )}
+
+        {tab === "Quizzes" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Quizzes page coming soon…
+          </div>
+        )}
+
+        {tab === "Activities" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Activities page coming soon…
+          </div>
+        )}
+
+        {tab === "Learning Path" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Full learning path page coming soon…
+          </div>
+        )}
+
+        {tab === "Insights" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Insights page coming soon…
+          </div>
+        )}
+      </div>
+    </motion.div>
   );
 }

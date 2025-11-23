@@ -184,7 +184,7 @@ export function HeroSection() {
                         className="rounded-lg px-5 border border-gray-800 hover:text-gray-900 hover:scale-105 duration-200 transition-transform"
 
                       >
-                        <Link href="#link">
+                        <Link href="/dashboard">
                           <span className="text-nowrap  hover:text-gray-900 dark:hover:text-gray-800 rounded-lg">
                             Get Started
                           </span>
@@ -198,7 +198,7 @@ export function HeroSection() {
                       variant="ghost"
                       className="h-10.5 rounded-xl px-5"
                     >
-                      <Link href="#link">
+                      <Link href="/dashboard">
                         <span className="text-nowrap rounded-lg">
                           Request a demo
                         </span>
@@ -354,6 +354,25 @@ export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
+  const isDashboard = pathname.startsWith("/dashboard");
+  const [fadeOpacity, setFadeOpacity] = React.useState(1);
+
+  React.useEffect(() => {
+    if (!isDashboard) return;
+
+    const scrollContainer = document.querySelector("main");
+    if (!scrollContainer) return;
+
+    const handleFade = () => {
+      const newOpacity = Math.max(1 - scrollContainer.scrollTop / 200, 0);
+      setFadeOpacity(newOpacity);
+    };
+
+    scrollContainer.addEventListener("scroll", handleFade);
+    return () => scrollContainer.removeEventListener("scroll", handleFade);
+  }, [isDashboard]);
+
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -366,6 +385,7 @@ export const HeroHeader = () => {
       <nav
         data-state={menuState && "active"}
         className="fixed z-20 w-full px-2 group"
+        style={{ opacity: isDashboard ? fadeOpacity : 1 }}
       >
         <div
           className={cn(
