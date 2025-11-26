@@ -176,7 +176,7 @@ const Movingquotes = () => {
                         {t.role}
                       </div>
                       <div className="mt-2 text-sm text-foreground/80 italic">
-                        "{t.quote}"
+                        {t.quote}
                       </div>
                       <div className="mt-3">
                         <Smallstar n={t.rating} />
