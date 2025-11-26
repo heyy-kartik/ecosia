@@ -2,7 +2,7 @@
   "name": "ecosia-pccoe",
   "version": "0.1.0",
   "private": true,
-  "type": "module" , 
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -35,7 +35,8 @@
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.23.22",
+    "cobe": "^0.6.5",
+    "framer-motion": "^12.23.24",
     "lucide-react": "^0.544.0",
     "mongoose": "^8.19.0",
     "motion": "^12.23.24",

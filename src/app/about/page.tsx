@@ -5,48 +5,42 @@ import Image from "next/image";
 
 const content = [
   {
-    title: "Collaborative Editing",
+    title: "Kartik Jagdale",
     description:
-      "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
+      "Development. Leading the technical implementation and architecture of the project. Responsible for full-stack development and ensuring code quality.",
     content: (
       <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
-        Collaborative Editing
+        Kartik Jagdale - Development
       </div>
     ),
   },
   {
-    title: "Real time changes",
+    title: "Dhani Shende",
     description:
-      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
+      "Development. Contributing to the frontend and backend development. Focused on creating responsive and user-friendly interfaces.",
     content: (
-      <div className="h-full w-full  flex items-center justify-center text-white">
-        <Image
-          src="https://ui.aceternity.com/_next/image?url=%2Flinear.webp&w=640&q=75"
-          width={300}
-          height={300}
-          className="h-full w-full object-cover"
-          alt="linear board demo"
-        />
+      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--pink-500),var(--indigo-500))] flex items-center justify-center text-white">
+        Dhani Shende - Development
       </div>
     ),
   },
   {
-    title: "Version control",
+    title: "Paurnima Jagdale",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "UI/UX and Automation. Designing intuitive user experiences and ensuring the application is robust through automated testing strategies.",
     content: (
       <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
-        Version control
+        Paurnima Jagdale - UI/UX & Automation
       </div>
     ),
   },
   {
-    title: "Running out of content",
+    title: "Kaushal Gadekar",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "Testing. Ensuring the quality and reliability of the application through rigorous testing and bug reporting.",
     content: (
       <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
-        Running out of content
+        Kaushal Gadekar - Testing
       </div>
     ),
   },
@@ -54,7 +48,7 @@ const content = [
 
 export default function StickyScrollRevealDemo() {
   return (
-    <div className="p-10">
+    <div className="">
       <StickyScroll content={content} />
     </div>
   );
