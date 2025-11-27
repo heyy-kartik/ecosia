@@ -9,7 +9,13 @@ import { LearningPathCard } from "@/components/learning-path-card";
 import { TopicsTable } from "./activities/components/topics-table";
 
 import { Leaf, Target, BookOpen, Sparkles } from "lucide-react";
-import { LayoutDashboard, Route, BarChart3, MessagesSquare, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  Route,
+  BarChart3,
+  MessagesSquare,
+  Settings,
+} from "lucide-react";
 
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
@@ -21,8 +27,8 @@ const scrollReveal = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
 };
 
 const parallax: Variants = {
@@ -30,17 +36,14 @@ const parallax: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut" }
-  }
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
 };
 
 export default function DashboardPage() {
   const [tab, setTab] = useState("Overview");
 
   const { scrollY } = useScroll();
-
-  const totalViews = content.reduce((sum, c) => sum + c.views, 0);
-  const uniqueCategories = new Set(content.map((c) => c.category)).size;
 
   return (
     <motion.div
@@ -54,15 +57,18 @@ export default function DashboardPage() {
         {/* Top section */}
         <div className="px-5 py-4 flex items-center gap-2">
           <Leaf className="text-green-400" size={22} />
-          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">Ecosia</span>
+          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">
+            Ecosia
+          </span>
         </div>
 
         {/* Navigation sections */}
         <div className="flex-1 flex flex-col justify-between py-4">
-
           <div>
             {/* HOME SECTION */}
-            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">Home</div>
+            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">
+              Home
+            </div>
             <nav className="flex flex-col gap-0.5 px-3 mb-4">
               <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/10 text-black dark:text-white">
                 <LayoutDashboard size={18} /> Dashboard
@@ -86,7 +92,10 @@ export default function DashboardPage() {
                 <Sparkles size={18} /> Activities
               </button>
 
-              <Link href="/dashboard/insights-page" className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+              <Link
+                href="/dashboard/insights-page"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
                 <BarChart3 size={18} /> Insights
               </Link>
 
@@ -98,30 +107,28 @@ export default function DashboardPage() {
 
           <div className="mt-auto">
             {/* DOCUMENTS SECTION */}
-            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">Documents</div>
+            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">
+              Documents
+            </div>
             <nav className="flex flex-col gap-0.5 px-3">
               <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
                 <Settings size={18} /> Settings
               </button>
             </nav>
           </div>
-
         </div>
       </aside>
-      
-      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y-auto text-black dark:text-white">
 
+      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y-auto text-black dark:text-white">
         {/* Overview Tab */}
         {tab === "Overview" && (
           <div className="flex flex-col gap-10">
-
             {/* Stat Cards */}
             <motion.div
               variants={parallax}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
-              
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             >
               <StatCard
@@ -157,7 +164,6 @@ export default function DashboardPage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
-              
               className="w-full"
             >
               <ClimateChart />
@@ -169,7 +175,6 @@ export default function DashboardPage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
-              
               className="w-full"
             >
               <LearningPathCard />
@@ -181,12 +186,10 @@ export default function DashboardPage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
-              
               className="w-full"
             >
               <TopicsTable />
             </motion.div>
-
           </div>
         )}
 
