@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { TabSwitcher } from "./activities/components/tabs-switcher";
-
 import { StatCard } from "./activities/components/stat-card";
 import { ClimateChart } from "./activities/components/climate-chart";
 import { LearningPathCard } from "@/components/learning-path-card";
@@ -22,6 +20,23 @@ import type { Variants } from "framer-motion";
 import { useScroll } from "framer-motion";
 import Link from "next/link";
 
+// Import Shadcn Sidebar components
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+
 const scrollReveal = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -40,184 +55,242 @@ const parallax: Variants = {
   },
 };
 
+// Navigation menu data
+const menuData = {
+  home: [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
+      isActive: true,
+    },
+    {
+      title: "Learning Path",
+      url: "/dashboard/activities/learningPath",
+      icon: Route,
+    },
+    {
+      title: "Quizzes",
+      url: "/dashboard/quizzes",
+      icon: BookOpen,
+    },
+    {
+      title: "Activities",
+      url: "#",
+      icon: Sparkles,
+    },
+    {
+      title: "Insights",
+      url: "/dashboard/insights-page",
+      icon: BarChart3,
+    },
+    {
+      title: "AI Assistant",
+      url: "/dashboard/ai-assistant",
+      icon: MessagesSquare,
+    },
+  ],
+  documents: [
+    {
+      title: "Settings",
+      url: "#",
+      icon: Settings,
+    },
+  ],
+};
+
 export default function DashboardPage() {
   const [tab, setTab] = useState("Overview");
-
   const { scrollY } = useScroll();
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex flex-row w-full h-screen overflow-hidden bg-[#f5f3f0] dark:bg-black rounded-xl text-sm mt-3"
-    >
-      {/* Sidebar */}
-      <aside className="w-56 h-full bg-transparent backdrop-blur-xl text-black dark:text-white flex flex-col rounded-xl text-sm">
-        {/* Top section */}
-        <div className="px-5 py-4 flex items-center gap-2">
-          <Leaf className="text-green-400" size={22} />
-          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">
-            Ecosia
-          </span>
-        </div>
-
-        {/* Navigation sections */}
-        <div className="flex-1 flex flex-col justify-between py-4">
-          <div>
-            {/* HOME SECTION */}
-            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">
-              Home
+    <SidebarProvider>
+      <div className="flex h-full w-full bg-background">
+        {/* Shadcn Sidebar */}
+        <Sidebar variant="inset" className="bg-sidebar border-sidebar-border">
+          <SidebarHeader>
+            <div className="flex items-center gap-2 px-2 py-2">
+              <Leaf className="text-green-200" size={22} />
+              <span className="text-lg font-semibold tracking-tight">
+                Ecosia
+              </span>
             </div>
-            <nav className="flex flex-col gap-0.5 px-3 mb-4">
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/10 text-black dark:text-white">
-                <LayoutDashboard size={18} /> Dashboard
-              </button>
+          </SidebarHeader>
 
-              <Link
-                href="/dashboard/activities/learningPath"
-                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
-              >
-                <Route size={18} /> Learning Path
-              </Link>
+          <SidebarContent>
+            {/* Home Section */}
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/70">
+                Home
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {menuData.home.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={item.isActive}
+                        className="w-full justify-start"
+                      >
+                        <Link
+                          href={item.url}
+                          className="flex items-center gap-3"
+                        >
+                          <item.icon size={18} />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
 
-              <Link
-                href="/dashboard/quizzes"
-                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
-              >
-                <BookOpen size={18} /> Quizzes
-              </Link>
+            {/* Documents Section */}
+            <SidebarGroup className="mt-auto">
+              <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/70">
+                Documents
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {menuData.documents.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton
+                        asChild
+                        className="w-full justify-start"
+                      >
+                        <Link
+                          href={item.url}
+                          className="flex items-center gap-3"
+                        >
+                          <item.icon size={18} />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
 
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
-                <Sparkles size={18} /> Activities
-              </button>
-
-              <Link
-                href="/dashboard/insights-page"
-                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
-              >
-                <BarChart3 size={18} /> Insights
-              </Link>
-              <Link href="/dashboard/ai-assistant">
-                <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
-                  <MessagesSquare size={18} /> AI Assistant
-                </button>
-              </Link>
-            </nav>
-          </div>
-
-          <div className="mt-auto">
-            {/* DOCUMENTS SECTION */}
-            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">
-              Documents
+        {/* Main Content */}
+        <SidebarInset>
+          {/* Header with trigger */}
+          <header className="flex h-20 shrink-0 items-center gap-2 px-4 border-b border-sidebar-border">
+            <SidebarTrigger className="-ml-1" />
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg font-semibold">Dashboard</h1>
             </div>
-            <nav className="flex flex-col gap-0.5 px-3">
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
-                <Settings size={18} /> Settings
-              </button>
-            </nav>
-          </div>
-        </div>
-      </aside>
+          </header>
 
-      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y- text-black dark:text-white">
-        {/* Overview Tab */}
-        {tab === "Overview" && (
-          <div className="flex flex-col gap-10">
-            {/* Stat Cards */}
-            <motion.div
-              variants={parallax}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-            >
-              <StatCard
-                title="Climate Score"
-                value="78"
-                subtitle="Your overall understanding"
-                trend="+12% this week"
-                icon={<Leaf size={18} />}
-              />
-              <StatCard
-                title="Quiz Accuracy"
-                value="85%"
-                subtitle="Across last 5 quizzes"
-                icon={<Target size={18} />}
-              />
-              <StatCard
-                title="Lessons Completed"
-                value="14"
-                subtitle="Across all climate topics"
-                icon={<BookOpen size={18} />}
-              />
-              <StatCard
-                title="Activity Points"
-                value="260"
-                subtitle="Earned from climate tasks"
-                icon={<Sparkles size={18} />}
-              />
-            </motion.div>
+          {/* Dashboard Content */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex-1 p-6 overflow-y-scroll"
+          >
+            {/* Overview Tab */}
+            {tab === "Overview" && (
+              <div className="flex flex-col gap-10">
+                {/* Stat Cards */}
+                <motion.div
+                  variants={parallax}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.2 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
+                  <StatCard
+                    title="Climate Score"
+                    value="78"
+                    subtitle="Your overall understanding"
+                    trend="+12% this week"
+                    icon={<Leaf size={18} />}
+                  />
+                  <StatCard
+                    title="Quiz Accuracy"
+                    value="85%"
+                    subtitle="Across last 5 quizzes"
+                    icon={<Target size={18} />}
+                  />
+                  <StatCard
+                    title="Lessons Completed"
+                    value="14"
+                    subtitle="Across all climate topics"
+                    icon={<BookOpen size={18} />}
+                  />
+                  <StatCard
+                    title="Activity Points"
+                    value="260"
+                    subtitle="Earned from climate tasks"
+                    icon={<Sparkles size={18} />}
+                  />
+                </motion.div>
 
-            {/* Climate Chart — full width & spacious */}
-            <motion.div
-              variants={parallax}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              className="w-full"
-            >
-              <ClimateChart />
-            </motion.div>
+                {/* Climate Chart — full width & spacious */}
+                <motion.div
+                  variants={parallax}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.2 }}
+                  className="w-full"
+                >
+                  <ClimateChart />
+                </motion.div>
 
-            {/* Learning Path — horizontal full width */}
-            <motion.div
-              variants={parallax}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              className="w-full"
-            >
-              <LearningPathCard />
-            </motion.div>
+                {/* Learning Path — horizontal full width */}
+                <motion.div
+                  variants={parallax}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.2 }}
+                  className="w-full"
+                >
+                  <LearningPathCard />
+                </motion.div>
 
-            {/* Topics Table */}
-            <motion.div
-              variants={parallax}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              className="w-full"
-            >
-              <TopicsTable />
-            </motion.div>
-          </div>
-        )}
+                {/* Topics Table */}
+                <motion.div
+                  variants={parallax}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.2 }}
+                  className="w-full"
+                >
+                  <TopicsTable />
+                </motion.div>
+              </div>
+            )}
 
-        {tab === "Quizzes" && (
-          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
-            Quizzes page coming soon…
-          </div>
-        )}
+            {tab === "Quizzes" && (
+              <div className="text-muted-foreground text-lg opacity-70">
+                Quizzes page coming soon…
+              </div>
+            )}
 
-        {tab === "Activities" && (
-          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
-            Activities page coming soon…
-          </div>
-        )}
+            {tab === "Activities" && (
+              <div className="text-muted-foreground text-lg opacity-70">
+                Activities page coming soon…
+              </div>
+            )}
 
-        {tab === "Learning Path" && (
-          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
-            Full learning path page coming soon…
-          </div>
-        )}
+            {tab === "Learning Path" && (
+              <div className="text-muted-foreground text-lg opacity-70">
+                Full learning path page coming soon…
+              </div>
+            )}
 
-        {tab === "Insights" && (
-          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
-            Insights page coming soon…
-          </div>
-        )}
+            {tab === "Insights" && (
+              <div className="text-muted-foreground text-lg opacity-70">
+                Insights page coming soon…
+              </div>
+            )}
+          </motion.div>
+        </SidebarInset>
       </div>
-    </motion.div>
+    </SidebarProvider>
   );
 }
