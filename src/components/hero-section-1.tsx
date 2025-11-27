@@ -9,14 +9,12 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Movingquotes from "@/components/Movingquotes";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import {motion,Variants} from "framer-motion";
 const ModeToggle = dynamic(
   () => import("@/components/toggle-dark").then((mod) => mod.ModeToggle),
   { ssr: false }
 );
-import { Variants } from "framer-motion";
 import {
-  ClerkProvider,
   SignInButton,
   SignUpButton,
   SignedIn,
@@ -36,7 +34,7 @@ const variants: Variants = {
   },
 };
 // ...existing code...
-const transitionVariants: { item: Variants } = {
+const transitionVariants = {
   item: {
     hidden: {
       opacity: 0,
@@ -61,7 +59,7 @@ const transitionVariants: { item: Variants } = {
 export function HeroSection() {
   return (
     <>
-      <ClerkProvider>
+      <>
         <HeroHeader />
         <main className="overflow-hidden">
           <div
@@ -102,12 +100,12 @@ export function HeroSection() {
                 className="absolute inset-0 -z-20"
               >
                 <Image
-                  src="https://ik.imagekit.io/lrigu76hy/tailark/night-background.jpg?updatedAt=1745733451120"
-                  alt="background"
-                  className="absolute inset-0 -z-20 opacity-[0.05] object-contain mx-auto dark:block"
-                  width="3276"
-                  height="4095"
-                />
+                      src="/logo.jpg"
+                      alt="background logo"
+                      className="absolute inset-0 -z-20 opacity-[0.05] object-contain mx-auto"
+                      width={1800}
+                      height={1800}
+                    />
               </AnimatedGroup>
               <div
                 aria-hidden
@@ -189,6 +187,19 @@ export function HeroSection() {
                         </Link>
                       </Button>
                     </div>
+                    <Button
+                      key={2}
+                      asChild
+                      size="lg"
+                      variant="ghost"
+                      className="h-10.5 rounded-xl px-5"
+                    >
+                      <Link href="/dashboard">
+                        <span className="text-nowrap rounded-lg">
+                          Request a demo
+                        </span>
+                      </Link>
+                    </Button>
                   </AnimatedGroup>
                 </div>
               </div>
@@ -211,16 +222,16 @@ export function HeroSection() {
                     aria-hidden
                     className="bg-gradient-to-b to-background absolute inset-0 z-10 from-transparent from-35%"
                   />
-                  <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
+                  <div className="shadow-sm ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
                     <Image
-                      className="bg-background aspect-15/8 relative hidden rounded-3xl shadow-2xl shadow-black/20 mx-auto dark:block"
+                      className="bg-background aspect-video relative hidden rounded-3xl shadow-2xl shadow-black/20 dark:block"
                       src="https://tailark.com//_next/image?url=%2Fmail2.png&w=3840&q=75"
                       alt="app screen"
                       width="2700"
                       height="1440"
                     />
                     <Image
-                      className="z-2 border-border/25 aspect-15/8 relative rounded-2xl border mx-auto dark:hidden"
+                      className="z-2 border-border/25 aspect-video relative rounded-2xl border dark:hidden"
                       src="https://tailark.com/_next/image?url=%2Fmail2-light.png&w=3840&q=75"
                       alt="app screen"
                       width="2700"
@@ -248,7 +259,7 @@ export function HeroSection() {
             </div>
           </section>
         </main>
-      </ClerkProvider>
+      </>
     </>
   );
 }
@@ -266,6 +277,25 @@ export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
+  const isDashboard = pathname.startsWith("/dashboard");
+  const [fadeOpacity, setFadeOpacity] = React.useState(1);
+
+  React.useEffect(() => {
+    if (!isDashboard) return;
+
+    const scrollContainer = document.querySelector("main");
+    if (!scrollContainer) return;
+
+    const handleFade = () => {
+      const newOpacity = Math.max(1 - scrollContainer.scrollTop / 200, 0);
+      setFadeOpacity(newOpacity);
+    };
+
+    scrollContainer.addEventListener("scroll", handleFade);
+    return () => scrollContainer.removeEventListener("scroll", handleFade);
+  }, [isDashboard]);
+
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -278,6 +308,7 @@ export const HeroHeader = () => {
       <nav
         data-state={menuState && "active"}
         className="fixed z-20 w-full px-2 group"
+        style={{ opacity: isDashboard ? fadeOpacity : 1 }}
       >
         <div
           className={cn(

@@ -1,419 +1,219 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { DashboardLayout } from "@/components/dashboard-layout";
+import { useState } from "react";
+import { TabSwitcher } from "./activities/components/tabs-switcher";
 
-import ProgressAnalytics from "@/components/ProgressAnalytics";
-import Footer from "@/components/Footer";
+import { StatCard } from "./activities/components/stat-card";
+import { ClimateChart } from "./activities/components/climate-chart";
+import { LearningPathCard } from "@/components/learning-path-card";
+import { TopicsTable } from "./activities/components/topics-table";
 
-import {
-  IconTrendingUp,
-  IconBook,
-  IconEye,
-  IconCategory,
-} from "@tabler/icons-react";
+import { Leaf, Target, BookOpen, Sparkles } from "lucide-react";
+import { LayoutDashboard, Route, BarChart3, MessagesSquare, Settings } from "lucide-react";
 
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { useScroll } from "framer-motion";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-
-interface User {
-  _id: string;
-  clerkId: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-  ageGroup?: string;
-  onboardingCompleted: boolean;
-}
-
-interface Content {
-  _id: string;
-  title: string;
-  description: string;
-  category: string;
-  views: number;
-  createdAt: string;
-}
-
-export default function Page() {
-  const [user, setUser] = useState<User | null>(null);
-  const [content, setContent] = useState<Content[]>([]);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    async function load() {
-      try {
-        const userRes = await fetch("/api/users");
-        if (!userRes.ok) return;
-
-        const userData = await userRes.json();
-        setUser(userData);
-
-        if (!userData.onboardingCompleted) {
-          router.push("/onboarding");
-          return;
-        }
-
-        const contentRes = await fetch(
-          `/api/content?ageGroup=${userData.ageGroup}&limit=6`
-        );
-
-        if (contentRes.ok) {
-          const contentData = await contentRes.json();
-          setContent(contentData.content);
-        }
-      } catch (err) {
-        console.error("Error loading data:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    load();
-  }, [router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-muted-foreground">
-          <ProgressAnalytics /> Loading your dashboard...
-        </div>
-      </div>
-    );
+const scrollReveal = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
   }
+};
+
+const parallax: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" }
+  }
+};
+
+export default function DashboardPage() {
+  const [tab, setTab] = useState("Overview");
+
+  const { scrollY } = useScroll();
 
   const totalViews = content.reduce((sum, c) => sum + c.views, 0);
   const uniqueCategories = new Set(content.map((c) => c.category)).size;
 
   return (
-    <DashboardLayout>
-      <main className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Dashboard</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="flex flex-row w-full min-h-screen bg-[#f5f3f0] dark:bg-black rounded-xl p-6 text-sm mt-12"
+    >
+      {/* Sidebar */}
+      <aside className="w-56 min-h-screen bg-transparent backdrop-blur-xl text-black dark:text-white flex flex-col rounded-xl text-sm">
+        {/* Top section */}
+        <div className="px-5 py-4 flex items-center gap-2">
+          <Leaf className="text-green-400" size={22} />
+          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">Ecosia</span>
+        </div>
 
-        {/* Welcome */}
-        <div className="mt-6 mb-10 flex items-center justify-between">
+        {/* Navigation sections */}
+        <div className="flex-1 flex flex-col justify-between py-4">
+
           <div>
-            <h1 className="text-4xl font-bold">
-              Welcome back, {user?.firstName || "there"} 🌱
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              Continue your climate learning journey
-            </p>
+            {/* HOME SECTION */}
+            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">Home</div>
+            <nav className="flex flex-col gap-0.5 px-3 mb-4">
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/10 text-black dark:text-white">
+                <LayoutDashboard size={18} /> Dashboard
+              </button>
+
+              <Link
+                href="/dashboard/activities/learningPath"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
+                <Route size={18} /> Learning Path
+              </Link>
+
+              <Link
+                href="/dashboard/quizzes"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
+                <BookOpen size={18} /> Quizzes
+              </Link>
+
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <Sparkles size={18} /> Activities
+              </button>
+
+              <Link href="/dashboard/insights-page" className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <BarChart3 size={18} /> Insights
+              </Link>
+
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <MessagesSquare size={18} /> AI Assistant
+              </button>
+            </nav>
           </div>
 
-          <div className="flex gap-3">
-            <Button onClick={() => router.push("/content")}>
-              Browse Content
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => router.push("/onboarding")}
-            >
-              Retake Assessment
-            </Button>
-          </div>
-        </div>
-
-        {/* Streak */}
-        <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 mb-10">
-          <CardContent className="p-6 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="text-3xl">🔥</div>
-              <div>
-                <h3 className="font-semibold text-lg">Learning Streak</h3>
-                <p className="text-muted-foreground">
-                  Keep up the great momentum
-                </p>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-3xl font-bold text-green-600">7</div>
-              <div className="text-sm text-muted-foreground">days</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Learning Path */}
-        <h2 className="text-2xl font-bold mb-4">Your Learning Path</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {/* Current Goal */}
-          <Card className="border-blue-200 bg-blue-50">
-            <CardHeader>
-              <CardTitle>🎯 Current Goal</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <h3 className="font-semibold mb-2">Climate Science Basics</h3>
-              <div className="w-full bg-gray-200 h-2 rounded-full mb-2">
-                <div
-                  className="bg-blue-500 h-2 rounded-full"
-                  style={{ width: "65%" }}
-                />
-              </div>
-              <p className="text-sm text-muted-foreground">
-                65% complete • 3 of 8 lessons
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Milestone */}
-          <Card className="border-purple-200 bg-purple-50">
-            <CardHeader>
-              <CardTitle>🏆 Next Milestone</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <h3 className="font-semibold mb-2">Climate Champion</h3>
-              <p className="text-sm text-muted-foreground mb-2">
-                Complete 10 lessons to unlock
-              </p>
-              <div className="w-full bg-gray-200 h-2 rounded-full">
-                <div
-                  className="bg-purple-500 h-2 rounded-full"
-                  style={{ width: "70%" }}
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Suggested Next */}
-          <Card className="border-orange-200 bg-orange-50">
-            <CardHeader>
-              <CardTitle> Suggested Next</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <h3 className="font-semibold mb-2">Renewable Energy</h3>
-              <p className="text-sm text-muted-foreground mb-2">
-                Based on your progress
-              </p>
-              <Button size="sm" className="w-full">
-                Start Learning
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {/* Age Group */}
-          <Card>
-            <CardHeader>
-              <CardDescription>Age Group</CardDescription>
-              <CardTitle className="capitalize">
-                {user?.ageGroup || "N/A"}
-              </CardTitle>
-              <CardAction>
-                <Badge variant="outline">
-                  <IconBook className="size-4" />
-                  Active
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter>
-              <div>
-                <p className="font-medium">Your content preference</p>
-                <p className="text-muted-foreground">Curated for your group</p>
-              </div>
-            </CardFooter>
-          </Card>
-
-          {/* Content Count */}
-          <Card>
-            <CardHeader>
-              <CardDescription>Available Content</CardDescription>
-              <CardTitle>{content.length}</CardTitle>
-              <CardAction>
-                <Badge variant="outline">
-                  <IconTrendingUp className="size-4" />
-                  Updated
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter>
-              <div>
-                <p className="font-medium">Items for you</p>
-                <p className="text-muted-foreground">Start learning today</p>
-              </div>
-            </CardFooter>
-          </Card>
-
-          {/* Views */}
-          <Card>
-            <CardHeader>
-              <CardDescription>Total Views</CardDescription>
-              <CardTitle>{totalViews}</CardTitle>
-              <CardAction>
-                <Badge variant="outline">
-                  <IconEye className="size-4" />
-                  Engagement
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter>
-              <div>
-                <p className="font-medium">Content engagement</p>
-                <p className="text-muted-foreground">Popular topics</p>
-              </div>
-            </CardFooter>
-          </Card>
-
-          {/* Categories */}
-          <Card>
-            <CardHeader>
-              <CardDescription>Categories</CardDescription>
-              <CardTitle>{uniqueCategories}</CardTitle>
-              <CardAction>
-                <Badge variant="outline">
-                  <IconCategory className="size-4" />
-                  Diverse
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter>
-              <div>
-                <p className="font-medium">Available categories</p>
-                <p className="text-muted-foreground">Explore more</p>
-              </div>
-            </CardFooter>
-          </Card>
-        </div>
-
-        {/* Analytics */}
-        <h2 className="text-2xl font-bold mb-4">🤖 AI Learning Insights</h2>
-        <ProgressAnalytics />
-
-        {/* Recommended Content */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold">⭐ Recommended for You</h2>
-            <Button variant="outline" onClick={() => router.push("/content")}>
-              View All
-            </Button>
+          <div className="mt-auto">
+            {/* DOCUMENTS SECTION */}
+            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">Documents</div>
+            <nav className="flex flex-col gap-0.5 px-3">
+              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                <Settings size={18} /> Settings
+              </button>
+            </nav>
           </div>
 
-          {content.length === 0 ? (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <p className="text-muted-foreground">
-                  No content available yet. Check back soon.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {content.map((item) => (
-                <Card key={item._id} className="hover:shadow-lg transition">
-                  <CardHeader>
-                    <CardTitle className="line-clamp-1">{item.title}</CardTitle>
-                    <CardDescription className="line-clamp-2">
-                      {item.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between text-sm">
-                      <Badge variant="secondary" className="capitalize">
-                        {item.category}
-                      </Badge>
-                      <span className="flex items-center gap-1 text-muted-foreground">
-                        <IconEye className="size-4" /> {item.views}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
         </div>
+      </aside>
+      
+      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y-auto text-black dark:text-white">
 
-        {/* Quick Actions */}
-        <div className="mb-20">
-          <h2 className="text-2xl font-bold mb-4">Quick Actions</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card
-              className="cursor-pointer hover:shadow-md transition"
-              onClick={() => router.push("/content?type=quiz")}
-            >
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl mb-2">🧠</div>
-                <h3 className="font-semibold">Take Quiz</h3>
-                <p className="text-sm text-muted-foreground">
-                  Test what you learned
-                </p>
-              </CardContent>
-            </Card>
+        {/* Overview Tab */}
+        {tab === "Overview" && (
+          <div className="flex flex-col gap-10">
 
-            <Card
-              className="cursor-pointer hover:shadow-md transition"
-              onClick={() => router.push("/content?category=solutions")}
+            {/* Stat Cards */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             >
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl mb-2">💡</div>
-                <h3 className="font-semibold">Climate Solutions</h3>
-                <p className="text-sm text-muted-foreground">
-                  Learn about fixes
-                </p>
-              </CardContent>
-            </Card>
+              <StatCard
+                title="Climate Score"
+                value="78"
+                subtitle="Your overall understanding"
+                trend="+12% this week"
+                icon={<Leaf size={18} />}
+              />
+              <StatCard
+                title="Quiz Accuracy"
+                value="85%"
+                subtitle="Across last 5 quizzes"
+                icon={<Target size={18} />}
+              />
+              <StatCard
+                title="Lessons Completed"
+                value="14"
+                subtitle="Across all climate topics"
+                icon={<BookOpen size={18} />}
+              />
+              <StatCard
+                title="Activity Points"
+                value="260"
+                subtitle="Earned from climate tasks"
+                icon={<Sparkles size={18} />}
+              />
+            </motion.div>
 
-            <Card
-              className="cursor-pointer hover:shadow-md transition"
-              onClick={() => router.push("/content?type=interactive")}
+            {/* Climate Chart — full width & spacious */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="w-full"
             >
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl mb-2">🌍</div>
-                <h3 className="font-semibold">Interactive</h3>
-                <p className="text-sm text-muted-foreground">
-                  Hands-on learning
-                </p>
-              </CardContent>
-            </Card>
+              <ClimateChart />
+            </motion.div>
 
-            <Card
-              className="cursor-pointer hover:shadow-md transition"
-              onClick={() => router.push("/progress")}
+            {/* Learning Path — horizontal full width */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="w-full"
             >
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl mb-2">📊</div>
-                <h3 className="font-semibold">View Progress</h3>
-                <p className="text-sm text-muted-foreground">
-                  Track your journey
-                </p>
-              </CardContent>
-            </Card>
+              <LearningPathCard />
+            </motion.div>
+
+            {/* Topics Table */}
+            <motion.div
+              variants={parallax}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              
+              className="w-full"
+            >
+              <TopicsTable />
+            </motion.div>
+
           </div>
-        </div>
-      </main>
+        )}
 
-      <Footer />
-    </DashboardLayout>
+        {tab === "Quizzes" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Quizzes page coming soon…
+          </div>
+        )}
+
+        {tab === "Activities" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Activities page coming soon…
+          </div>
+        )}
+
+        {tab === "Learning Path" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Full learning path page coming soon…
+          </div>
+        )}
+
+        {tab === "Insights" && (
+          <div className="text-black/60 dark:text-muted-foreground text-lg opacity-70">
+            Insights page coming soon…
+          </div>
+        )}
+      </div>
+    </motion.div>
   );
 }
