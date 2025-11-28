@@ -1,22 +1,46 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutDashboard, Route, MessagesSquare, Settings, BarChart3, BookOpen, Sparkles } from "lucide-react";
+import {
+  LayoutDashboard,
+  Route,
+  MessagesSquare,
+  Settings,
+  BarChart3,
+  BookOpen,
+  Sparkles,
+} from "lucide-react";
 import { motion } from "framer-motion";
-import { Card, CardTitle, CardDescription, CardHeader, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardTitle,
+  CardDescription,
+  CardHeader,
+  CardContent,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Leaf, Battery, Globe, Recycle, Sun, TestTube, ChevronRight } from "lucide-react";
+import {
+  Leaf,
+  Battery,
+  Globe,
+  Recycle,
+  Sun,
+  TestTube,
+  ChevronRight,
+} from "lucide-react";
 
 const quizList = [
   {
     title: "Climate Basics",
-    description: "Understand greenhouse gases, climate change and sustainability.",
+    description:
+      "Understand greenhouse gases, climate change and sustainability.",
     icon: <Globe size={22} />,
     difficulty: "Easy",
   },
   {
     title: "Renewable Energy",
-    description: "Test your knowledge on solar, wind, hydro and future energy sources.",
+    description:
+      "Test your knowledge on solar, wind, hydro and future energy sources.",
     icon: <Sun size={22} />,
     difficulty: "Medium",
   },
@@ -34,13 +58,15 @@ const quizList = [
   },
   {
     title: "Ecosystems & Biodiversity",
-    description: "Understanding how ecosystems maintain balance and why species matter.",
+    description:
+      "Understanding how ecosystems maintain balance and why species matter.",
     icon: <Leaf size={22} />,
     difficulty: "Medium",
   },
   {
     title: "Environmental Chemistry",
-    description: "Pollutants, chemical reactions and the impact on air + water.",
+    description:
+      "Pollutants, chemical reactions and the impact on air + water.",
     icon: <TestTube size={22} />,
     difficulty: "Hard",
   },
@@ -67,7 +93,7 @@ const quizList = [
     description: "Explore endangered species and conservation strategies.",
     icon: <Sun size={22} />,
     difficulty: "Hard",
-  }
+  },
 ];
 
 export default function QuizzesPage() {
@@ -78,17 +104,23 @@ export default function QuizzesPage() {
         {/* Top section */}
         <div className="px-5 py-4 flex items-center gap-2">
           <Leaf className="text-green-400" size={22} />
-          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">Ecosia</span>
+          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">
+            Ecosia
+          </span>
         </div>
 
         {/* Navigation sections */}
         <div className="flex-1 flex flex-col justify-between py-4">
-
           <div>
             {/* HOME SECTION */}
-            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">Home</div>
+            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">
+              Home
+            </div>
             <nav className="flex flex-col gap-0.5 px-3 mb-4">
-              <Link href="/dashboard" className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
                 <LayoutDashboard size={18} /> Dashboard
               </Link>
 
@@ -96,7 +128,10 @@ export default function QuizzesPage() {
                 <Route size={18} /> Learning Path
               </button>
 
-              <Link href="/dashboard/quizzes" className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/10 text-black dark:text-white transition">
+              <Link
+                href="/dashboard/quizzes"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/10 text-black dark:text-white transition"
+              >
                 <BookOpen size={18} /> Quizzes
               </Link>
 
@@ -104,26 +139,33 @@ export default function QuizzesPage() {
                 <Sparkles size={18} /> Activities
               </button>
 
-              <Link href="/dashboard/insights-page" className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+              <Link
+                href="/dashboard/insights"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
                 <BarChart3 size={18} /> Insights
               </Link>
 
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+              <Link
+                href="/dashboard/ai-assistant"
+                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
+              >
                 <MessagesSquare size={18} /> AI Assistant
-              </button>
+              </Link>
             </nav>
           </div>
 
           <div className="mt-auto">
             {/* DOCUMENTS SECTION */}
-            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">Documents</div>
+            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">
+              Documents
+            </div>
             <nav className="flex flex-col gap-0.5 px-3">
               <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
                 <Settings size={18} /> Settings
               </button>
             </nav>
           </div>
-
         </div>
       </aside>
 
@@ -134,9 +176,12 @@ export default function QuizzesPage() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex flex-col gap-10 w-full mt-20"
         >
-          <h1 className="text-5xl font-bold text-center tracking-tight">Quizzes</h1>
+          <h1 className="text-5xl font-bold text-center tracking-tight">
+            Quizzes
+          </h1>
           <p className="text-sm text-muted-foreground text-center max-w-xl mx-auto mb-10">
-            Test your climate knowledge. Smart AI will recommend harder or easier topics based on your results.
+            Test your climate knowledge. Smart AI will recommend harder or
+            easier topics based on your results.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
@@ -153,9 +198,13 @@ export default function QuizzesPage() {
                   <CardHeader>
                     <div className="flex items-center gap-3">
                       <div className="text-green-600">{quiz.icon}</div>
-                      <CardTitle className="text-lg font-semibold tracking-tight">{quiz.title}</CardTitle>
+                      <CardTitle className="text-lg font-semibold tracking-tight">
+                        {quiz.title}
+                      </CardTitle>
                     </div>
-                    <CardDescription className="text-sm opacity-70">{quiz.description}</CardDescription>
+                    <CardDescription className="text-sm opacity-70">
+                      {quiz.description}
+                    </CardDescription>
                   </CardHeader>
 
                   <CardContent className="flex items-center justify-between">

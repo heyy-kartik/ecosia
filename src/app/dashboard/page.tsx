@@ -81,7 +81,7 @@ const menuData = {
     },
     {
       title: "Insights",
-      url: "/dashboard/insights-page",
+      url: "/dashboard/insights",
       icon: BarChart3,
     },
     {
@@ -105,10 +105,13 @@ export default function DashboardPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-full w-full bg-background">
+      <div className="flex h-screen w-full bg-background overflow-hidden">
         {/* Shadcn Sidebar */}
-        <Sidebar variant="inset" className="bg-sidebar border-sidebar-border">
-          <SidebarHeader>
+        <Sidebar
+          variant="inset"
+          className="bg-sidebar border-sidebar-border h-screen"
+        >
+          <SidebarHeader className="shrink-0 border-b border-sidebar-border">
             <div className="flex items-center gap-2 px-2 py-2">
               <Leaf className="text-green-200" size={22} />
               <span className="text-lg font-semibold tracking-tight">
@@ -117,7 +120,7 @@ export default function DashboardPage() {
             </div>
           </SidebarHeader>
 
-          <SidebarContent>
+          <SidebarContent className="flex-1 overflow-hidden">
             {/* Home Section */}
             <SidebarGroup>
               <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/70">
@@ -147,7 +150,7 @@ export default function DashboardPage() {
             </SidebarGroup>
 
             {/* Documents Section */}
-            <SidebarGroup className="mt-auto">
+            <SidebarGroup className="mt-2">
               <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/70">
                 Documents
               </SidebarGroupLabel>
@@ -176,119 +179,121 @@ export default function DashboardPage() {
         </Sidebar>
 
         {/* Main Content */}
-        <SidebarInset>
+        <SidebarInset className="flex flex-col h-screen overflow-hidden">
           {/* Header with trigger */}
-          <header className="flex h-20 shrink-0 items-center gap-2 px-4 border-b border-sidebar-border">
-            <SidebarTrigger className="-ml-1" />
+          <header className="flex h-16 shrink-0 items-center gap-2 px-4 border-b border-sidebar-border bg-background z-10">
+            <SidebarTrigger className="" />
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-semibold">Dashboard</h1>
             </div>
           </header>
 
-          {/* Dashboard Content */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex-1 p-6 overflow-y-scroll"
-          >
-            {/* Overview Tab */}
-            {tab === "Overview" && (
-              <div className="flex flex-col gap-10">
-                {/* Stat Cards */}
-                <motion.div
-                  variants={parallax}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: false, amount: 0.2 }}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-                >
-                  <StatCard
-                    title="Climate Score"
-                    value="78"
-                    subtitle="Your overall understanding"
-                    trend="+12% this week"
-                    icon={<Leaf size={18} />}
-                  />
-                  <StatCard
-                    title="Quiz Accuracy"
-                    value="85%"
-                    subtitle="Across last 5 quizzes"
-                    icon={<Target size={18} />}
-                  />
-                  <StatCard
-                    title="Lessons Completed"
-                    value="14"
-                    subtitle="Across all climate topics"
-                    icon={<BookOpen size={18} />}
-                  />
-                  <StatCard
-                    title="Activity Points"
-                    value="260"
-                    subtitle="Earned from climate tasks"
-                    icon={<Sparkles size={18} />}
-                  />
-                </motion.div>
+          {/* Dashboard Content - Single scrollable area */}
+          <div className="flex-1 overflow-y-scroll overflow-x-hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="overflow-hidden"
+            >
+              {/* Overview Tab */}
+              {tab === "Overview" && (
+                <div className="flex flex-col gap-10">
+                  {/* Stat Cards */}
+                  <motion.div
+                    variants={parallax}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                  >
+                    <StatCard
+                      title="Climate Score"
+                      value="78"
+                      subtitle="Your overall understanding"
+                      trend="+12% this week"
+                      icon={<Leaf size={18} />}
+                    />
+                    <StatCard
+                      title="Quiz Accuracy"
+                      value="85%"
+                      subtitle="Across last 5 quizzes"
+                      icon={<Target size={18} />}
+                    />
+                    <StatCard
+                      title="Lessons Completed"
+                      value="14"
+                      subtitle="Across all climate topics"
+                      icon={<BookOpen size={18} />}
+                    />
+                    <StatCard
+                      title="Activity Points"
+                      value="260"
+                      subtitle="Earned from climate tasks"
+                      icon={<Sparkles size={18} />}
+                    />
+                  </motion.div>
 
-                {/* Climate Chart — full width & spacious */}
-                <motion.div
-                  variants={parallax}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: false, amount: 0.2 }}
-                  className="w-full"
-                >
-                  <ClimateChart />
-                </motion.div>
+                  {/* Climate Chart — full width & spacious */}
+                  <motion.div
+                    variants={parallax}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    className="w-full"
+                  >
+                    <ClimateChart />
+                  </motion.div>
 
-                {/* Learning Path — horizontal full width */}
-                <motion.div
-                  variants={parallax}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: false, amount: 0.2 }}
-                  className="w-full"
-                >
-                  <LearningPathCard />
-                </motion.div>
+                  {/* Learning Path — horizontal full width */}
+                  <motion.div
+                    variants={parallax}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    className="w-full"
+                  >
+                    <LearningPathCard />
+                  </motion.div>
 
-                {/* Topics Table */}
-                <motion.div
-                  variants={parallax}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: false, amount: 0.2 }}
-                  className="w-full"
-                >
-                  <TopicsTable />
-                </motion.div>
-              </div>
-            )}
+                  {/* Topics Table */}
+                  <motion.div
+                    variants={parallax}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    className="w-full"
+                  >
+                    <TopicsTable />
+                  </motion.div>
+                </div>
+              )}
 
-            {tab === "Quizzes" && (
-              <div className="text-muted-foreground text-lg opacity-70">
-                Quizzes page coming soon…
-              </div>
-            )}
+              {tab === "Quizzes" && (
+                <div className="text-muted-foreground text-lg opacity-70">
+                  Quizzes page coming soon…
+                </div>
+              )}
 
-            {tab === "Activities" && (
-              <div className="text-muted-foreground text-lg opacity-70">
-                Activities page coming soon…
-              </div>
-            )}
+              {tab === "Activities" && (
+                <div className="text-muted-foreground text-lg opacity-70">
+                  Activities page coming soon…
+                </div>
+              )}
 
-            {tab === "Learning Path" && (
-              <div className="text-muted-foreground text-lg opacity-70">
-                Full learning path page coming soon…
-              </div>
-            )}
+              {tab === "Learning Path" && (
+                <div className="text-muted-foreground text-lg opacity-70">
+                  Full learning path page coming soon…
+                </div>
+              )}
 
-            {tab === "Insights" && (
-              <div className="text-muted-foreground text-lg opacity-70">
-                Insights page coming soon…
-              </div>
-            )}
-          </motion.div>
+              {tab === "Insights" && (
+                <div className="text-muted-foreground text-lg opacity-70">
+                  Insights page coming soon…
+                </div>
+              )}
+            </motion.div>
+          </div>
         </SidebarInset>
       </div>
     </SidebarProvider>
