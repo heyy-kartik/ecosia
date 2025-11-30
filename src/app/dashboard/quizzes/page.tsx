@@ -1,15 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import {
-  LayoutDashboard,
-  Route,
-  MessagesSquare,
-  Settings,
-  BarChart3,
-  BookOpen,
-  Sparkles,
-} from "lucide-react";
 import { motion } from "framer-motion";
 import {
   Card,
@@ -98,139 +88,67 @@ const quizList = [
 
 export default function QuizzesPage() {
   return (
-    <div className="flex flex-row w-full min-h-screen">
-      {/* Sidebar */}
-      <aside className="w-56 min-h-screen bg-transparent backdrop-blur-xl text-black dark:text-white flex flex-col rounded-xl text-sm mr-2 mt-18">
-        {/* Top section */}
-        <div className="px-5 py-4 flex items-center gap-2">
-          <Leaf className="text-green-400" size={22} />
-          <span className="text-lg font-semibold tracking-tight text-black dark:text-white">
-            Ecosia
-          </span>
-        </div>
-
-        {/* Navigation sections */}
-        <div className="flex-1 flex flex-col justify-between py-4">
-          <div>
-            {/* HOME SECTION */}
-            <div className="px-6 pb-2 text-xs uppercase tracking-wider text-gray-500">
-              Home
-            </div>
-            <nav className="flex flex-col gap-0.5 px-3 mb-4">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
-              >
-                <LayoutDashboard size={18} /> Dashboard
-              </Link>
-
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
-                <Route size={18} /> Learning Path
-              </button>
-
-              <Link
-                href="/dashboard/quizzes"
-                className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/10 text-black dark:text-white transition"
-              >
-                <BookOpen size={18} /> Quizzes
-              </Link>
-
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
-                <Sparkles size={18} /> Activities
-              </button>
-
-              <Link
-                href="/dashboard/insights"
-                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
-              >
-                <BarChart3 size={18} /> Insights
-              </Link>
-
-              <Link
-                href="/dashboard/ai-assistant"
-                className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition"
-              >
-                <MessagesSquare size={18} /> AI Assistant
-              </Link>
-            </nav>
-          </div>
-
-          <div className="mt-auto">
-            {/* DOCUMENTS SECTION */}
-            <div className="px-6 pb-2 mt-2 text-xs uppercase tracking-wider text-gray-500">
-              Documents
-            </div>
-            <nav className="flex flex-col gap-0.5 px-3">
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
-                <Settings size={18} /> Settings
-              </button>
-            </nav>
-          </div>
-        </div>
-      </aside>
-
-      <div className="flex-1 pl-10">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex flex-col gap-10 w-full mt-20"
-        >
-          <h1 className="text-5xl font-bold text-center tracking-tight">
-            Quizzes
-          </h1>
-          <p className="text-sm text-muted-foreground text-center max-w-xl mx-auto mb-10">
-            Test your climate knowledge. Smart AI will recommend harder or
-            easier topics based on your results.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
-            {quizList.map((quiz, index) => (
-              <motion.div
-                key={quiz.title}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: index * 0.05, duration: 0.6 }}
-                whileHover={{ y: -4 }}
-              >
-                <Card className="rounded-3xl p-5 bg-[#e5e5e5] dark:bg-[#161616] backdrop-blur-3xl shadow-[0_4px_16px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.10)] dark:hover:shadow-[0_8px_24px_rgba(0,0,0,0.5)] transition-all duration-300 border-0 min-h-[180px]">
-                  <CardHeader>
-                    <div className="flex items-center gap-3">
-                      <div className="text-green-600">{quiz.icon}</div>
-                      <CardTitle className="text-lg font-semibold tracking-tight">
-                        {quiz.title}
-                      </CardTitle>
-                    </div>
-                    <CardDescription className="text-sm opacity-70">
-                      {quiz.description}
-                    </CardDescription>
-                  </CardHeader>
-
-                  <CardContent className="flex items-center justify-between">
-                    <span
-                      className={
-                        quiz.difficulty === "Easy"
-                          ? "text-green-700 dark:text-green-400 text-sm font-medium"
-                          : quiz.difficulty === "Medium"
-                          ? "text-yellow-700 dark:text-yellow-400 text-sm font-medium"
-                          : "text-red-700 dark:text-red-400 text-sm font-medium"
-                      }
-                    >
-                      {quiz.difficulty}
-                    </span>
-
-                    <Button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/10 dark:bg-white/10 text-black dark:text-white hover:bg-black/20 dark:hover:bg-white/20 transition-all">
-                      Start
-                      <ChevronRight size={16} />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="flex flex-col gap-6 w-full"
+    >
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight mb-2">
+          Quizzes
+        </h1>
+        <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+          Test your climate knowledge. Smart AI will recommend harder or
+          easier topics based on your results.
+        </p>
       </div>
-    </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {quizList.map((quiz, index) => (
+          <motion.div
+            key={quiz.title}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ delay: index * 0.05, duration: 0.6 }}
+            whileHover={{ y: -4 }}
+          >
+            <Card className="rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 min-h-[180px]">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="text-green-600">{quiz.icon}</div>
+                  <CardTitle className="text-lg font-semibold tracking-tight">
+                    {quiz.title}
+                  </CardTitle>
+                </div>
+                <CardDescription className="text-sm">
+                  {quiz.description}
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent className="flex items-center justify-between">
+                <span
+                  className={
+                    quiz.difficulty === "Easy"
+                      ? "text-green-600 text-sm font-medium"
+                      : quiz.difficulty === "Medium"
+                      ? "text-yellow-600 text-sm font-medium"
+                      : "text-red-600 text-sm font-medium"
+                  }
+                >
+                  {quiz.difficulty}
+                </span>
+
+                <Button className="flex items-center gap-2">
+                  Start
+                  <ChevronRight size={16} />
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   );
 }

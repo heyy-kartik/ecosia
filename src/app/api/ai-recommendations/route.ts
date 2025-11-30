@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { connectToDatabase } from '@/lib/mongodb';
+import connectToDatabase from '@/lib/mongodb';
 import { LearningPath, AssessmentResult } from '@/models/Assessment';
 import Content, { IContent } from '@/models/Content';
-import { User } from '@/models/User';
+import { IUser } from '@/models/User';
 
 interface RecommendationRequest {
   userId?: string;

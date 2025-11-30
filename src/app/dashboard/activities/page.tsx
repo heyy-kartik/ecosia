@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Leaf,
   Recycle,
   Droplets,
   Lightbulb,
@@ -47,7 +46,7 @@ const activities = [
   {
     title: "Local Ecosystem Study",
     description: "Observe and document biodiversity in nearby areas.",
-    icon: <Leaf size={22} />,
+    icon: <TreePine size={22} />,
     difficulty: "Hard",
   },
 ];
@@ -55,10 +54,12 @@ const activities = [
 export default function ActivitiesPage() {
   return (
     <div className="flex flex-col gap-6 w-full">
-      <h1 className="text-xl font-semibold text-white">Activities</h1>
-      <p className="text-sm text-gray-300">
-        Climate-friendly challenges designed to help you apply what you learn in the real world.
-      </p>
+      <div>
+        <h1 className="text-2xl font-bold mb-2">Activities</h1>
+        <p className="text-sm text-muted-foreground">
+          Climate-friendly challenges designed to help you apply what you learn in the real world.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
         {activities.map((activity, index) => (
@@ -68,29 +69,29 @@ export default function ActivitiesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
           >
-            <Card className="rounded-xl bg-white/5 backdrop-blur-xl p-5 shadow-lg hover:shadow-xl transition-all border-none">
+            <Card className="rounded-xl p-5 shadow-lg hover:shadow-xl transition-all">
               <CardHeader>
-                <div className="flex items-center gap-3 bg-white/10 p-2 rounded-lg backdrop-blur-md shadow-sm">
+                <div className="flex items-center gap-3">
                   <div className="text-green-600">{activity.icon}</div>
                   <CardTitle className="text-base">{activity.title}</CardTitle>
                 </div>
-                <CardDescription className="text-gray-300">{activity.description}</CardDescription>
+                <CardDescription>{activity.description}</CardDescription>
               </CardHeader>
 
               <CardContent className="flex items-center justify-between">
                 <span
                   className={
                     activity.difficulty === "Easy"
-                      ? "text-green-300 text-sm"
+                      ? "text-green-600 text-sm font-medium"
                       : activity.difficulty === "Medium"
-                      ? "text-yellow-300 text-sm"
-                      : "text-red-300 text-sm"
+                      ? "text-yellow-600 text-sm font-medium"
+                      : "text-red-600 text-sm font-medium"
                   }
                 >
                   {activity.difficulty}
                 </span>
 
-                <Button className="flex items-center gap-1 bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm shadow-sm">
+                <Button className="flex items-center gap-1">
                   Start Activity
                   <ChevronRight size={16} />
                 </Button>
