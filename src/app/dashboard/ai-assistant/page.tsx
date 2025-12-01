@@ -5,9 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 import {
   Leaf,
@@ -78,7 +77,6 @@ const CATEGORY_COLORS = {
 };
 
 export default function AIAssistantPage() {
-  const { user } = useUser();
   const [categories, setCategories] = useState<Record<string, ClimateCategory>>(
     {}
   );
@@ -202,12 +200,9 @@ export default function AIAssistantPage() {
     >
       <Avatar className="h-8 w-8 shrink-0">
         {message.role === "user" ? (
-          <>
-            <AvatarImage src={user?.imageUrl} />
-            <AvatarFallback>
-              <User size={16} />
-            </AvatarFallback>
-          </>
+          <AvatarFallback>
+            <User size={16} />
+          </AvatarFallback>
         ) : (
           <AvatarFallback className="bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-100">
             <Bot size={16} />
@@ -274,7 +269,7 @@ export default function AIAssistantPage() {
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-center gap-3 mb-2"
         >
-          <div className="p-2 rounded-full bg-gradient-to-r from-green-600 to-blue-600 text-white">
+        <div className="p-2 rounded-full bg-linear-to-r from-green-600 to-blue-600 text-white">
             <Sparkles size={24} />
           </div>
           <h1 className="text-3xl font-bold text-white tracking-tight">
