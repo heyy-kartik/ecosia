@@ -2,28 +2,36 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 export default function Footer() {
   return (
     <footer className="relative z-20 w-full bg-background/80 backdrop-blur border-t border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-16">
-      <motion.div 
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
-  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"
->
-
-
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"
+        >
           {/* Brand Section */}
 
           <div className="space-y-1">
-          <div className="flex items-center gap-3">
-            <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="rounded-md" />
-            <div>
-              <p className="font-bold text-foreground text-lg">ECOSIA PCCOE</p>
-              <p className="text-xs text-muted-foreground">Climate Education — Powered by AI</p>
-            </div>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/ecosia-logo.svg"
+                alt="Ecosia Logo"
+                width={40}
+                height={40}
+                className="rounded-md"
+              />
+              <div>
+                <p className="font-bold text-foreground text-lg">
+                  ECOSIA PCCOE
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Climate Education — Powered by AI
+                </p>
+              </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               Empowering individuals with the knowledge and tools to understand
@@ -36,10 +44,11 @@ export default function Footer() {
           </div>
 
           {/* Learning Paths */}
-          
 
           <div>
-          <p className="font-semibold text-white/90 mb-4 tracking-wide">Learning Paths </p>
+            <p className="font-semibold text-white/90 mb-4 tracking-wide">
+              Learning Paths{" "}
+            </p>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link
@@ -86,7 +95,9 @@ export default function Footer() {
 
           {/* Age Groups */}
           <div>
-            <h3 className="font-semibold text-white/90 mb-4 tracking-wide">Age Groups</h3>
+            <h3 className="font-semibold text-white/90 mb-4 tracking-wide">
+              Age Groups
+            </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link
@@ -123,7 +134,8 @@ export default function Footer() {
               <li>
                 <Link
                   href="/onboarding"
-                  className="hover:text-white transition-all duration-200">
+                  className="hover:text-white transition-all duration-200"
+                >
                   Get Started
                 </Link>
               </li>
@@ -132,7 +144,9 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-white/90 mb-4 tracking-wide">Quick Links</h3>
+            <h3 className="font-semibold text-white/90 mb-4 tracking-wide">
+              Quick Links
+            </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link
@@ -175,9 +189,8 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>   
+          </div>
         </motion.div>
-        
 
         {/* Bottom Section */}
         <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">

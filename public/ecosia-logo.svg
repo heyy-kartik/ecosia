@@ -1,0 +1,23 @@
+<svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Green hexagonal background -->
+  <defs>
+    <clipPath id="hexClip">
+      <polygon points="50,20 150,20 200,100 150,180 50,180 0,100"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Hexagon background -->
+  <polygon points="50,20 150,20 200,100 150,180 50,180 0,100" fill="#4CAF50"/>
+  
+  <!-- White circle background for earth -->
+  <circle cx="100" cy="100" r="50" fill="white"/>
+  
+  <!-- Earth outline -->
+  <path d="M 70 85 Q 85 75, 100 85 Q 115 75, 130 85 Q 130 95, 125 105 Q 115 115, 100 115 Q 85 115, 75 105 Q 70 95, 70 85" fill="none" stroke="#4CAF50" stroke-width="2"/>
+  
+  <!-- Leaf -->
+  <path d="M 120 90 Q 135 85, 140 100 Q 135 115, 125 110 Q 120 105, 120 90" fill="#4CAF50"/>
+  
+  <!-- ECOSIA text -->
+  <text x="220" y="130" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#333">ECOSIA</text>
+</svg>

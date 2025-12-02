@@ -263,7 +263,7 @@ export default function AIAssistantPage() {
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-center gap-3 mb-2"
         >
-        <div className="p-2.5 rounded-full bg-neutral-800/60 dark:bg-neutral-800/60 border border-white/10 shadow-md shadow-black/20">
+          <div className="p-2.5 rounded-full bg-neutral-800/60 dark:bg-neutral-800/60 border border-white/10 shadow-md shadow-black/20">
             <Sparkles size={24} />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-white dark:text-white">
@@ -306,9 +306,10 @@ export default function AIAssistantPage() {
                 key={key}
                 size="sm"
                 className={`px-3 py-1.5 rounded-full text-xs md:text-sm transition-all
-    ${isSelected 
-      ? "bg-green-600 text-white shadow-sm" 
-      : "bg-white/10 dark:bg-white/10 text-white/80 hover:bg-white/20"
+    ${
+      isSelected
+        ? "bg-green-600 text-white shadow-sm"
+        : "bg-white/10 dark:bg-white/10 text-white/80 hover:bg-white/20"
     }`}
                 onClick={() =>
                   setSelectedCategory(selectedCategory === key ? "" : key)
@@ -399,7 +400,6 @@ export default function AIAssistantPage() {
               placeholders={climatePlaceholders}
               onChange={() => {}}
               onSubmit={handleQuestionSubmit}
-              className="text-sm"
             />
           </div>
         </CardContent>

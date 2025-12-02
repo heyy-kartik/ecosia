@@ -100,8 +100,8 @@ export function HeroSection() {
                 className="absolute inset-0 -z-20"
               >
                 <Image
-                  src="/logo.jpg"
-                  alt="background logo"
+                  src="/logo2.png"
+                  alt="Ecosia background logo"
                   className="absolute inset-0 -z-20 opacity-[0.05] object-contain mx-auto"
                   width={1800}
                   height={1800}
@@ -394,10 +394,10 @@ export const HeroHeader = () => {
 const Logo = ({ className }: { className?: string }) => {
   return (
     <Image
-      src="/logo.jpg"
-      alt="Company Logo"
-      width={100}
-      height={40}
+      src="/logo2.png"
+      alt="Ecosia Logo"
+      width={180}
+      height={100}
       className={cn("h-6 w-10", className)}
     />
   );
