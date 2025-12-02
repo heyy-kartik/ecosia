@@ -1,10 +1,29 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Target,
   Plus,
@@ -18,7 +37,7 @@ import {
   Recycle,
 } from "lucide-react";
 
-const goals = [
+const initialGoals = [
   {
     title: "Complete Climate Fundamentals Path",
     description: "Finish all 8 modules in the Climate Change Fundamentals learning path",
@@ -124,8 +143,57 @@ const getCategoryColor = (category: string) => {
 };
 
 export default function GoalsPage() {
+  const [goals, setGoals] = useState(initialGoals);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [newGoal, setNewGoal] = useState({
+    title: "",
+    description: "",
+    category: "",
+    target: "",
+    deadline: "",
+    priority: "medium",
+  });
+
   const activeGoals = goals.filter((g) => g.status === "in-progress");
   const completedGoals = goals.filter((g) => g.status === "completed");
+
+  const categoryIcons: { [key: string]: JSX.Element } = {
+    "Learning": <Target size={20} />,
+    "Action": <Leaf size={20} />,
+    "Conservation": <Droplets size={20} />,
+    "Consistency": <TrendingUp size={20} />,
+    "Challenge": <Recycle size={20} />,
+  };
+
+  const handleCreateGoal = () => {
+    if (!newGoal.title || !newGoal.category || !newGoal.target || !newGoal.deadline) {
+      return; // Basic validation
+    }
+
+    const goalToAdd = {
+      title: newGoal.title,
+      description: newGoal.description,
+      category: newGoal.category,
+      icon: categoryIcons[newGoal.category] || <Target size={20} />,
+      progress: 0,
+      current: 0,
+      target: parseInt(newGoal.target),
+      deadline: newGoal.deadline,
+      priority: newGoal.priority,
+      status: "in-progress" as const,
+    };
+
+    setGoals([...goals, goalToAdd]);
+    setNewGoal({
+      title: "",
+      description: "",
+      category: "",
+      target: "",
+      deadline: "",
+      priority: "medium",
+    });
+    setIsDialogOpen(false);
+  };
 
   return (
     <motion.div
@@ -141,10 +209,99 @@ export default function GoalsPage() {
             Set and track your personal climate action targets.
           </p>
         </div>
-        <Button className="flex items-center gap-2">
-          <Plus size={16} />
-          New Goal
-        </Button>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="flex items-center gap-2">
+              <Plus size={16} />
+              New Goal
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Create New Goal</DialogTitle>
+              <DialogDescription>
+                Set a new climate action goal to track your progress.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="title">Goal Title</Label>
+                <Input
+                  id="title"
+                  value={newGoal.title}
+                  onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
+                  placeholder="e.g., Reduce water usage by 30%"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description">Description</Label>
+                <Input
+                  id="description"
+                  value={newGoal.description}
+                  onChange={(e) => setNewGoal({ ...newGoal, description: e.target.value })}
+                  placeholder="Describe your goal in detail..."
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="category">Category</Label>
+                <Select value={newGoal.category} onValueChange={(value) => setNewGoal({ ...newGoal, category: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Learning">Learning</SelectItem>
+                    <SelectItem value="Action">Action</SelectItem>
+                    <SelectItem value="Conservation">Conservation</SelectItem>
+                    <SelectItem value="Consistency">Consistency</SelectItem>
+                    <SelectItem value="Challenge">Challenge</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="target">Target Value</Label>
+                  <Input
+                    id="target"
+                    type="number"
+                    value={newGoal.target}
+                    onChange={(e) => setNewGoal({ ...newGoal, target: e.target.value })}
+                    placeholder="e.g., 30"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="priority">Priority</Label>
+                  <Select value={newGoal.priority} onValueChange={(value) => setNewGoal({ ...newGoal, priority: value })}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="high">High</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="deadline">Deadline</Label>
+                <Input
+                  id="deadline"
+                  type="date"
+                  value={newGoal.deadline}
+                  onChange={(e) => setNewGoal({ ...newGoal, deadline: e.target.value })}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleCreateGoal}>
+                Create Goal
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Stats Overview */}
