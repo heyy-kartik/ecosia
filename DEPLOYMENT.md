@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers deploying the Ecosia PCCOE application to production.
+This guide covers deploying the Ecosia  application to production.
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ git push origin main
 
 2. Click "Add New Project"
 
-3. Import your `ecosia-pccoe` repository
+3. Import your `ecosia` repository
 
 4. Configure the project:
    - Framework Preset: Next.js
@@ -63,7 +63,7 @@ git push origin main
    NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
-   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ecosia-pccoe
+   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ecosia
    NEXT_PUBLIC_APP_URL=https://your-app.vercel.app
    ```
 
@@ -185,8 +185,8 @@ const config = {
 
 3. Build and run:
 ```bash
-docker build -t ecosia-pccoe .
-docker run -p 3000:3000 --env-file .env.local ecosia-pccoe
+docker build -t ecosia .
+docker run -p 3000:3000 --env-file .env.local ecosia
 ```
 
 ## Post-Deployment Checklist
@@ -300,7 +300,7 @@ const config = {
 
 1. Go to your Vercel project settings
 2. Click "Domains"
-3. Add your custom domain (e.g., `ecosia-pccoe.com`)
+3. Add your custom domain (e.g., `ecosia.com`)
 4. Follow DNS configuration instructions
 5. Update Clerk settings with new domain
 6. Update `NEXT_PUBLIC_APP_URL` environment variable

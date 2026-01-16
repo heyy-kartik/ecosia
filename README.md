@@ -1,5 +1,5 @@
 
-# Ecosia PCCOE
+# Ecosia 
 
 Hackathon project for an educational platform with age-appropriate content.
 
@@ -37,8 +37,8 @@ Hackathon project for an educational platform with age-appropriate content.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/heyy-kartik/ecosia-pccoe.git
-cd ecosia-pccoe
+git clone https://github.com/heyy-kartik/ecosia.git
+cd ecosia
 ```
 
 2. Install dependencies:
@@ -121,6 +121,5 @@ MIT
 =======
 
 
-=======
-# ecosia-pccoe
+# ecosia
 Hackathon Repo for Ecosia 

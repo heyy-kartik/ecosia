@@ -156,7 +156,7 @@ A comprehensive full-stack web application built for a hackathon, providing age-
 ## File Structure
 
 ```
-ecosia-pccoe/
+ecosia/
 ├── src/
 │   ├── app/                    # Next.js app directory
 │   │   ├── api/               # API routes

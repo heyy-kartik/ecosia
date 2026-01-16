@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { HeroHeader } from "@/components/hero-section-1";
 import { SidebarProvider } from "@/components/ui/sidebar";
 export const metadata: Metadata = {
-  title: "Ecosia PCCOE - Educational Platform",
+  title: "Ecosia - Educational Platform",
   description: "Age-appropriate educational content platform",
 };
 

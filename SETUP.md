@@ -13,8 +13,8 @@ Before you begin, ensure you have the following installed:
 ## Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/heyy-kartik/ecosia-pccoe.git
-cd ecosia-pccoe
+git clone https://github.com/heyy-kartik/ecosia.git
+cd ecosia
 ```
 
 ## Step 2: Install Dependencies
