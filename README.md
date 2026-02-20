@@ -128,7 +128,7 @@ Hackathon Repo for Ecosia
 ## Contributors
 
 - Kartik Jagdale  
-- Vishal Gaikwad  
-- Anand Kumar  
+- Dhani Shende 
+- Shreyash Gandhi 
 - Krishna Aundhekar  
 
