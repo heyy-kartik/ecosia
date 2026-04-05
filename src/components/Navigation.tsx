@@ -8,7 +8,7 @@ export default function Navigation() {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="text-2xl font-bold text-primary">
-            Ecosia PCCOE
+            Ecosia
           </Link>
           <SignedIn>
             <div className="flex gap-4">
@@ -21,7 +21,7 @@ export default function Navigation() {
             </div>
           </SignedIn>
         </div>
-        
+
         <div className="flex items-center gap-4">
           <SignedIn>
             <UserButton afterSignOutUrl="/" />

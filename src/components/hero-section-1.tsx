@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 import { motion, Variants } from "framer-motion";
 const ModeToggle = dynamic(
   () => import("@/components/toggle-dark").then((mod) => mod.ModeToggle),
-  { ssr: false }
+  { ssr: false },
 );
 import {
   SignInButton,
@@ -22,7 +22,6 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { ThemeProvider } from "./theme-provider";
-// ...existing code...
 
 const variants: Variants = {
   hidden: { opacity: 0, filter: "none", y: 20 },
@@ -302,7 +301,7 @@ export const HeroHeader = () => {
           className={cn(
             "mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12",
             isScrolled &&
-              "bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-6"
+              "bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-6",
           )}
         >
           <div className="relative flex flex-wrap items-center justify-between gap-4 py-3 lg:gap-6 lg:py-4">

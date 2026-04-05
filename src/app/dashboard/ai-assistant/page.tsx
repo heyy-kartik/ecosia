@@ -78,7 +78,7 @@ const CATEGORY_COLORS = {
 
 export default function AIAssistantPage() {
   const [categories, setCategories] = useState<Record<string, ClimateCategory>>(
-    {}
+    {},
   );
   const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([]);
   const [messages, setMessages] = useState<ChatMessage[]>([]);

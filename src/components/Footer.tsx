@@ -26,7 +26,7 @@ export default function Footer() {
               />
               <div>
                 <p className="font-bold text-foreground text-lg">
-                  ECOSIA PCCOE
+                  ECOSIA 
                 </p>
                 <p className="text-xs text-muted-foreground">
                   Climate Education — Powered by AI
@@ -221,7 +221,7 @@ export default function Footer() {
             </Link>
           </div>
           <div className="text-xs text-muted-foreground/70">
-            © {new Date().getFullYear()} ECOSIA PCCOE. Building climate literacy
+            © {new Date().getFullYear()} ECOSIA . Building climate literacy
             for all.
           </div>
         </div>

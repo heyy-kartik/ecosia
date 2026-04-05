@@ -502,7 +502,7 @@ export default function EnhancedOnboarding() {
           {/* Progress Header */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h1 className="text-3xl font-bold">Welcome to ECOSIA PCCOE</h1>
+              <h1 className="text-3xl font-bold">Welcome to ECOSIA </h1>
               <span className="text-sm text-muted-foreground">
                 Step {state.step} of {steps.length}
               </span>

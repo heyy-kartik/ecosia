@@ -169,7 +169,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   height={24}
                   className="!size-5"
                 />
-                <span className="text-base font-semibold">Ecosia PCCOE</span>
+                <span className="text-base font-semibold">Ecosia </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
