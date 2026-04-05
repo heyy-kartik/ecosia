@@ -116,15 +116,8 @@ src/
 See `.env.example` for required environment variables.
 
 ## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-MIT
-=======
-
-
-# ecosia
-Hackathon Repo for Ecosia 
-
-# contibutors
 ## Contributors
 
 - Kartik Jagdale  
